@@ -40,7 +40,6 @@ func main() {
 		}
 
 		if info.Name() == "build.gradle" {
-			fmt.Println(path)
 			gradleFiles = append(gradleFiles, path)
 		}
 		return nil
@@ -50,7 +49,7 @@ func main() {
 	for _, gradleFile := range gradleFiles {
 		read, err := ioutil.ReadFile(gradleFile)
 		if err != nil {
-			log.Printf("Unable to handle %v\n", gradleFile)
+			log.Printf("Unable to read %v\n", gradleFile)
 		}
 		newContent := string(read)
 		for new, old := range renameMap {
@@ -59,7 +58,7 @@ func main() {
 		}
 		err = ioutil.WriteFile(gradleFile, []byte(newContent), 0)
 		if err != nil {
-			log.Printf("Unable to handle %v\n", gradleFile)
+			log.Printf("Unable to write %v\n", gradleFile)
 		}
 	}
 }
